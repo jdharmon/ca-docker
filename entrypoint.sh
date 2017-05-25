@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo $1
-
 new_ca () {
 	echo "*** Creating CA ***"
 	mkdir certs crl newcerts private
@@ -10,10 +8,10 @@ new_ca () {
 	openssl req -new -x509 -extensions v3_ca -out cacert.pem -keyout private/cakey.pem 
 }
 
-if [ ! -f /index.txt ]; then
+#Check for existing CA
+if [ ! -f index.txt ]; then
     new_ca
 fi
 
 #Run CMD
 $1
-
