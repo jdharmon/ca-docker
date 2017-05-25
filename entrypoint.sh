@@ -7,10 +7,7 @@ new_ca () {
 	mkdir certs crl newcerts private
 	touch index.txt
 	echo 1000 > serial
-	openssl req -new -out cacert.csr -keyout private/cakey.pem
-	echo "*** Signing CA ***"
-	openssl ca -selfsign -in cacert.csr -out cacert.pem -extensions v3_ca
-	rm cacert.csr
+	openssl req -new -x509 -extensions v3_ca -out cacert.pem -keyout private/cakey.pem 
 }
 
 if [ ! -f /index.txt ]; then
@@ -19,3 +16,4 @@ fi
 
 #Run CMD
 $1
+
