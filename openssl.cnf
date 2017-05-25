@@ -39,7 +39,7 @@ default_ca	= CA_default		# The default ca section
 ####################################################################
 [ CA_default ]
 
-dir		= /ca		# Where everything is kept
+dir		= /ca			# Where everything is kept
 certs		= $dir/certs		# Where the issued certs are kept
 crl_dir		= $dir/crl		# Where the issued crl are kept
 database	= $dir/index.txt	# database index file.
@@ -47,12 +47,12 @@ database	= $dir/index.txt	# database index file.
 					# several ctificates with same subject.
 new_certs_dir	= $dir/newcerts		# default place for new certs.
 
-certificate	= $dir/cacert.pem 	# The CA certificate
+certificate	= $dir/cacert.crt	# The CA certificate
 serial		= $dir/serial 		# The current serial number
 crlnumber	= $dir/crlnumber	# the current crl number
 					# must be commented out to leave a V1 CRL
-crl		= $dir/crl.pem 		# The current CRL
-private_key	= $dir/private/cakey.pem# The private key
+crl		= $dir/crl.crl		# The current CRL
+private_key	= $dir/private/cakey.key # The private key
 RANDFILE	= $dir/private/.rand	# private random number file
 
 x509_extensions	= usr_cert		# The extentions to add to the cert
@@ -104,7 +104,7 @@ emailAddress		= optional
 ####################################################################
 [ req ]
 default_bits		= 2048
-default_keyfile 	= privkey.pem
+default_keyfile 	= privkey.key
 distinguished_name	= req_distinguished_name
 attributes		= req_attributes
 x509_extensions	= v3_ca	# The extentions to add to the self signed cert
@@ -204,7 +204,7 @@ authorityKeyIdentifier=keyid,issuer
 # Copy subject details
 # issuerAltName=issuer:copy
 
-#nsCaRevocationUrl		= http://www.domain.dom/ca-crl.pem
+#nsCaRevocationUrl		= http://www.domain.dom/ca-crl.crl
 #nsBaseUrl
 #nsRevocationUrl
 #nsRenewalUrl
@@ -309,7 +309,7 @@ authorityKeyIdentifier=keyid,issuer
 # Copy subject details
 # issuerAltName=issuer:copy
 
-#nsCaRevocationUrl		= http://www.domain.dom/ca-crl.pem
+#nsCaRevocationUrl		= http://www.domain.dom/ca-crl.crl
 #nsBaseUrl
 #nsRevocationUrl
 #nsRenewalUrl
@@ -330,11 +330,11 @@ default_tsa = tsa_config1	# the default TSA section
 dir		= /ca			# TSA root directory
 serial		= $dir/tsaserial	# The current serial number (mandatory)
 crypto_device	= builtin		# OpenSSL engine to use for signing
-signer_cert	= $dir/tsacert.pem 	# The TSA signing certificate
+signer_cert	= $dir/tsacert.crt 	# The TSA signing certificate
 					# (optional)
-certs		= $dir/cacert.pem	# Certificate chain to include in reply
+certs		= $dir/cacert.crt	# Certificate chain to include in reply
 					# (optional)
-signer_key	= $dir/private/tsakey.pem # The TSA private key (optional)
+signer_key	= $dir/private/tsakey.key # The TSA private key (optional)
 
 default_policy	= tsa_policy1		# Policy if request did not specify it
 					# (optional)
