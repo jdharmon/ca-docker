@@ -179,13 +179,14 @@ basicConstraints=CA:FALSE
 # nsCertType = objsign
 
 # For normal client use this is typical
-# nsCertType = client, email
+nsCertType = client, email
 
 # and for everything including object signing:
 # nsCertType = client, email, objsign
 
 # This is typical in keyUsage for a client certificate.
-# keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, emailProtection
 
 # This will be displayed in Netscape's comment listbox.
 nsComment			= "OpenSSL Generated Certificate"
@@ -211,8 +212,19 @@ authorityKeyIdentifier=keyid,issuer
 #nsCaPolicyUrl
 #nsSslServerName
 
+
 # This is required for TSA certificates.
 # extendedKeyUsage = critical,timeStamping
+
+[ server_cert ]
+# Extensions for server certificates (`man x509v3_config`).
+basicConstraints = CA:FALSE
+nsCertType = server
+nsComment = "OpenSSL Generated Server Certificate"
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer:always
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
 
 [ v3_req ]
 
