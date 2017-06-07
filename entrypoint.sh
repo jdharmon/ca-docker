@@ -42,7 +42,15 @@ fi
 
 case "$1" in
 	create)
-		create_cert $2 $3
+		shift
+		create_cert "$@"
+		;;
+	run)
+		shift
+		exec "$@"
+		;;
+	sh)
+		/bin/sh
 		;;
 	*)
 		usage
