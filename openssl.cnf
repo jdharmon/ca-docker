@@ -110,8 +110,8 @@ attributes		= req_attributes
 x509_extensions	= v3_ca	# The extentions to add to the self signed cert
 
 # Passwords for private keys if not present they will be prompted for
-input_password = secret
-output_password = secret
+input_password = $ENV::PASSWORD
+output_password = $ENV::PASSWORD
 
 # This sets a mask for permitted string types. There are several options. 
 # default: PrintableString, T61String, BMPString.
