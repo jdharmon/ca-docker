@@ -7,6 +7,7 @@ usage() {
 }
 
 new_ca () {
+	echo
 	echo "*** Creating CA ***"
 	echo
 	mkdir certs crl newcerts private
@@ -24,6 +25,7 @@ create_cert() {
 	extensions="$1_cert"
 	certname=$2
 
+	echo
 	echo "*** Creating new $1 certificate ***"
 	openssl req -new -sha256 -out $certname.csr -keyout private/$certname.key
 	openssl ca -extensions $extensions -in $certname.csr -out certs/$certname.crt
