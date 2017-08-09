@@ -35,6 +35,13 @@ create_cert() {
 	rm $certname.csr
 }
 
+export_cert() {
+	if [ "$1" == "pfx" ] || [ "$1" == "pkcs12" ]; then
+		echo "Exporting $2 to $2.pfx..."
+		openssl pkcs12 -export -inkey private/$2.key -in certs/$2.crt -certfile cacert.crt -out certs/$2.pfx
+	fi
+}
+
 #Check for existing CA
 if [ ! -f index.txt ]; then
     new_ca
@@ -44,6 +51,10 @@ case "$1" in
 	create)
 		shift
 		create_cert "$@"
+		;;
+	export)
+		shift
+		export_cert "$@"
 		;;
 	run)
 		shift
