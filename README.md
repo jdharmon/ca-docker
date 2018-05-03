@@ -10,6 +10,9 @@ The default CA key password is "secret". You may specify a custom password by pa
 ### Create New Certificate
 ```docker run -it --rm -v ${PWD}:/ca jdharmon/ca create server|usr <certname>```
 
+### Create New Self-Signed Certificate
+```docker run -it --rm -v ${PWD}:/ca jdharmon/ca create self <certname>```
+
 ### Export Certificate to .pfx
 ```docker run -it --rm -v ${PWD}:/ca jdharmon/ca export pfx <certname>```
 

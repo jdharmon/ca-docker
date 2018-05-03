@@ -3,7 +3,7 @@
 set -e
 
 usage() {
-	echo "Usage: docker run -it -v /path/to/ca:/ca jdharmon/ca create server|usr <certname>"
+	echo "Usage: docker run -it -v /path/to/ca:/ca jdharmon/ca create server|usr|self <certname>"
 }
 
 new_ca () {
@@ -17,7 +17,7 @@ new_ca () {
 }
 
 create_cert() {
-	if [ "$1" != "server" ] && [ "$1" != "usr" ]; then
+	if [ "$1" != "server" ] && [ "$1" != "usr" ] && [ "$1" != "self" ]; then
 		usage
 		exit 2
 	fi
@@ -27,12 +27,17 @@ create_cert() {
 
 	echo
 	echo "*** Creating new $1 certificate ***"
-	openssl req -new -sha256 -out $certname.csr -keyout private/$certname.key
-	openssl ca -extensions $extensions -in $certname.csr -out certs/$certname.crt
+	if [ "$1" == "self" ]; then
+		openssl req -new -x509 -sha256 -out certs/$certname.crt -keyout private/$certname.key
+	else
+		openssl req -new -sha256 -out $certname.csr -keyout private/$certname.key
+		openssl ca -extensions $extensions -in $certname.csr -out certs/$certname.crt
+		rm $certname.csr
+	fi
+	
 	echo
 	echo "Certificate: certs/$certname.crt"
 	echo "Private key: private/$certname.key"
-	rm $certname.csr
 }
 
 export_cert() {
