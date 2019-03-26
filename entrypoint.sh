@@ -24,13 +24,19 @@ create_cert() {
 	
 	extensions="$1_cert"
 	certname=$2
-
+	
 	echo
 	echo "*** Creating new $1 certificate ***"
+	
+	if [ "${NO_PASSWORD:-N}" != "N" ]; then
+		echo "NO_PASSWORD specified. Output key will not be encrypted!"
+		args="-nodes"
+	fi
+
 	if [ "$1" == "self" ]; then
-		openssl req -new -x509 -sha256 -out certs/$certname.crt -keyout private/$certname.key
+		openssl req -new -x509 -sha256 -out certs/$certname.crt -keyout private/$certname.key $args
 	else
-		openssl req -new -sha256 -out $certname.csr -keyout private/$certname.key
+		openssl req -new -sha256 -out $certname.csr -keyout private/$certname.key $args
 		openssl ca -extensions $extensions -in $certname.csr -out certs/$certname.crt
 		rm $certname.csr
 	fi

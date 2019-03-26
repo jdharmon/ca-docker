@@ -5,7 +5,10 @@ Simple CA container for creating development certificates based on the [OpenSSL 
 
 On first run a CA certificate will be generated for you. 
 
+#### Passwords
 The default CA key password is "secret". You may specify a custom password by passing ```-e PASSWORD=mypassword``` to run.
+
+You may specify ```-e NO_PASSWORD=Y``` to create private keys without a password. The CA key will still have a password. 
 
 ### Create New Certificate
 ```docker run -it --rm -v ${PWD}:/ca jdharmon/ca create server|usr <certname>```
