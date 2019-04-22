@@ -6,7 +6,6 @@
 # This definition stops the following lines choking if HOME isn't
 # defined.
 HOME			= .
-RANDFILE		= $ENV::HOME/.rnd
 
 # Extra OBJECT IDENTIFIER info:
 #oid_file		= $ENV::HOME/.oid
@@ -43,7 +42,7 @@ dir		= /ca			# Where everything is kept
 certs		= $dir/certs		# Where the issued certs are kept
 crl_dir		= $dir/crl		# Where the issued crl are kept
 database	= $dir/index.txt	# database index file.
-#unique_subject	= no			# Set to 'no' to allow creation of
+unique_subject	= no			# Set to 'no' to allow creation of
 					# several ctificates with same subject.
 new_certs_dir	= $dir/newcerts		# default place for new certs.
 
@@ -53,7 +52,6 @@ crlnumber	= $dir/crlnumber	# the current crl number
 					# must be commented out to leave a V1 CRL
 crl		= $dir/crl.crl		# The current CRL
 private_key	= $dir/private/cakey.key # The private key
-RANDFILE	= $dir/private/.rand	# private random number file
 
 x509_extensions	= usr_cert		# The extentions to add to the cert
 
@@ -63,7 +61,7 @@ name_opt 	= ca_default		# Subject Name options
 cert_opt 	= ca_default		# Certificate field options
 
 # Extension copying option: use with caution.
-# copy_extensions = copy
+copy_extensions = copy
 
 # Extensions to add to a CRL. Note: Netscape communicator chokes on V2 CRLs
 # so this is commented out by default to leave a V1 CRL.
@@ -154,11 +152,6 @@ emailAddress_max		= 64
 # SET-ex3			= SET extension number 3
 
 [ req_attributes ]
-challengePassword		= A challenge password
-challengePassword_min		= 4
-challengePassword_max		= 20
-
-unstructuredName		= An optional company name
 
 [ usr_cert ]
 
@@ -225,6 +218,7 @@ subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
+subjectAltName=$ENV::SAN
 
 [ v3_req ]
 

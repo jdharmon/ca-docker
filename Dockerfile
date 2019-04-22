@@ -8,3 +8,4 @@ WORKDIR /ca
 ENTRYPOINT ["/bin/entrypoint.sh"]
 CMD ["/bin/sh"]
 ENV PASSWORD=secret
+ENV SAN=IP:127.0.0.1
